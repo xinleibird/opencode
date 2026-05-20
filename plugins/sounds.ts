@@ -194,7 +194,7 @@ export const SoundPlugin = (): SoundPluginHook => {
         if (event.type === "message.updated") {
           const info = event.properties?.info;
           if (info?.role === "user") {
-            await play("step");
+            await play("tick");
           }
           return;
         }

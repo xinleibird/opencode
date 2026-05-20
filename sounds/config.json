@@ -6,7 +6,7 @@
     "zelda": {
       "displayName": "The Legend of Zelda",
       "sounds": {
-        "step": "step.flac",
+        "tick": "tick.flac",
         "complete": "complete.flac",
         "notification": "notification.flac",
         "start": "start.flac",
