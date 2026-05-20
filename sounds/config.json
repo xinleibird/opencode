@@ -1,0 +1,16 @@
+{
+  "enabled": true,
+  "active_pack": "zelda",
+  "packs": {
+    "zelda": {
+      "displayName": "The Legend of Zelda",
+      "sounds": {
+        "user_prompt": "user_prompt.flac",
+        "task_complete": "task_complete.flac",
+        "notification": "notification.flac",
+        "stop": "stop.flac",
+        "permission": "permission.flac"
+      }
+    }
+  }
+}

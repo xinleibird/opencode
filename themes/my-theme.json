@@ -1,0 +1,190 @@
+{
+  "$schema": "https://opencode.ai/theme.json",
+  "defs": {
+    "latte_base": "#f9f5d7",
+    "latte_text": "#654735",
+    "latte_muted": "#8c856d",
+    "latte_crust": "#e8e3c8",
+    "latte_red": "#c14a4a",
+    "latte_green": "#6c782e",
+    "latte_yellow": "#b47109",
+    "latte_blue": "#45707a",
+    "latte_orange": "#c35e0a",
+    "latte_aqua": "#4c7a5d",
+    "latte_purple": "#945e80",
+
+    "mocha_base": "#1d2021",
+    "mocha_text": "#ebdbb2",
+    "mocha_muted": "#928374",
+    "mocha_crust": "#141617",
+    "mocha_red": "#ea6962",
+    "mocha_green": "#a9b665",
+    "mocha_yellow": "#d8a657",
+    "mocha_blue": "#7daea3",
+    "mocha_orange": "#e78a4e",
+    "mocha_aqua": "#89b482",
+    "mocha_purple": "#d3869b"
+  },
+  "theme": {
+    "primary": {
+      "dark": "mocha_blue",
+      "light": "latte_blue"
+    },
+    "secondary": {
+      "dark": "mocha_aqua",
+      "light": "latte_aqua"
+    },
+    "accent": {
+      "dark": "mocha_purple",
+      "light": "latte_purple"
+    },
+    "error": {
+      "dark": "mocha_red",
+      "light": "latte_red"
+    },
+    "warning": {
+      "dark": "mocha_orange",
+      "light": "latte_orange"
+    },
+    "success": {
+      "dark": "mocha_green",
+      "light": "latte_green"
+    },
+    "info": {
+      "dark": "mocha_blue",
+      "light": "latte_blue"
+    },
+    "text": {
+      "dark": "mocha_text",
+      "light": "latte_text"
+    },
+    "textMuted": {
+      "dark": "mocha_muted",
+      "light": "latte_muted"
+    },
+    "background": {
+      "dark": "mocha_base",
+      "light": "latte_base"
+    },
+    "backgroundPanel": {
+      "dark": "mocha_crust",
+      "light": "latte_crust"
+    },
+    "backgroundElement": {
+      "dark": "#292929",
+      "light": "#e3dec3"
+    },
+    "border": {
+      "dark": "#404040",
+      "light": "#d1c7a3"
+    },
+    "borderActive": {
+      "dark": "mocha_blue",
+      "light": "latte_blue"
+    },
+    "borderSubtle": {
+      "dark": "#292929",
+      "light": "#e3dec3"
+    },
+    "diffAdded": {
+      "dark": "mocha_green",
+      "light": "latte_green"
+    },
+    "diffRemoved": {
+      "dark": "mocha_red",
+      "light": "latte_red"
+    },
+    "diffContext": {
+      "dark": "mocha_muted",
+      "light": "latte_muted"
+    },
+    "diffHunkHeader": {
+      "dark": "mocha_aqua",
+      "light": "latte_aqua"
+    },
+    "diffHighlightAdded": {
+      "dark": "mocha_green",
+      "light": "latte_green"
+    },
+    "diffHighlightRemoved": {
+      "dark": "mocha_red",
+      "light": "latte_red"
+    },
+    "diffAddedBg": {
+      "dark": "#2d3329",
+      "light": "#e9edc4"
+    },
+    "diffRemovedBg": {
+      "dark": "#34292a",
+      "light": "#f1dbd1"
+    },
+    "markdownText": {
+      "dark": "mocha_text",
+      "light": "latte_text"
+    },
+    "markdownHeading": {
+      "dark": "mocha_orange",
+      "light": "latte_orange"
+    },
+    "markdownLink": {
+      "dark": "mocha_blue",
+      "light": "latte_blue"
+    },
+    "markdownLinkText": {
+      "dark": "mocha_aqua",
+      "light": "latte_aqua"
+    },
+    "markdownCode": {
+      "dark": "mocha_green",
+      "light": "latte_green"
+    },
+    "markdownListItem": {
+      "dark": "mocha_purple",
+      "light": "latte_purple"
+    },
+    "markdownListEnumeration": {
+      "dark": "mocha_purple",
+      "light": "latte_purple"
+    },
+    "markdownEmph": {
+      "dark": "mocha_muted",
+      "light": "latte_muted"
+    },
+    "markdownStrong": {
+      "dark": "mocha_red",
+      "light": "latte_red"
+    },
+    "syntaxComment": {
+      "dark": "mocha_muted",
+      "light": "latte_muted"
+    },
+    "syntaxKeyword": {
+      "dark": "mocha_red",
+      "light": "latte_red"
+    },
+    "syntaxFunction": {
+      "dark": "mocha_green",
+      "light": "latte_green"
+    },
+    "syntaxVariable": {
+      "dark": "mocha_text",
+      "light": "latte_text"
+    },
+    "syntaxString": {
+      "dark": "mocha_yellow",
+      "light": "latte_yellow"
+    },
+    "syntaxNumber": {
+      "dark": "mocha_purple",
+      "light": "latte_purple"
+    },
+    "syntaxType": {
+      "dark": "mocha_yellow",
+      "light": "latte_yellow"
+    },
+    "syntaxOperator": {
+      "dark": "mocha_aqua",
+      "light": "latte_aqua"
+    }
+  }
+}
