@@ -1,7 +1,6 @@
 {
   "$schema": "https://opencode.ai/config.json",
-  "plugin": ["opencode-gemini-auth@latest", "opencode-skill-creator@latest"],
-  "model": "nvidia/minimaxai/minimax-m2.7",
+  "plugin": ["opencode-gemini-auth@latest", "opencode-skill-creator"],
   "small_model": "nvidia/nvidia/nemotron-3-nano-30b-a3b",
   "lsp": true,
   "mcp": {

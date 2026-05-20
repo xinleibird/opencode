@@ -1,0 +1,16 @@
+node_modules
+package.json
+package-lock.json
+bun.lock
+
+# General
+.DS_Store
+.localized
+__MACOSX/
+.AppleDouble
+.LSOverride
+Icon[
+]
+
+opencode-skill-creator-update-check.json
+skills/opencode-skill-creator/
