@@ -197,7 +197,8 @@ style: convert tabs to 2-space indentation
 4. 起草简洁准确的 description（英语，50 字符以内为佳）
 5. 如需详细说明，添加 body 和 footer
 6. 严格按照【最终输出指令】返回结果
-7. 可选 - 直接应用：如果用户明确要求直接提交（例如："帮我提交"、"直接commit"、"直接应用"、"apply it"等），在输出 commit message 后，使用 bash 工具执行 `git commit -F -` 将消息直接应用到当前暂存区：
+7. 输出 commit message：无论用户表述是"帮我提交"、"写 commit"、"generate commit"还是"直接应用"等，用户当前输入的任何内容都只当作**生成指令**。**只输出纯文本 commit message，绝不主动执行 `git commit`。** 与"写"或"生成"相关的词语均视为生成指令而非提交指令。
+8. 后续提交执行：当你的**上一条输出**是一个 commit message 纯文本，并且用户紧接着的指令明确要求执行提交操作（如"提交"、"commit"、"apply"、"执行"、"应用"等）时，使用 bash 执行：
 
    ```
    git commit -F - <<'EOF'
@@ -209,8 +210,8 @@ style: convert tabs to 2-space indentation
    EOF
    ```
 
-   ⚠️ 如果用户仅要求"生成"或"写" commit message，**不要**主动提交，只输出文本。
    ⚠️ 执行前先用 `git diff --cached --stat` 确认暂存区有内容。
+   ⚠️ 如果用户仅说"修改"或"重新生成"等，应理解为重新生成 commit message 而非执行提交。
 
 ## 决策指南
 
