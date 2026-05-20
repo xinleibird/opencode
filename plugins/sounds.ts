@@ -7,15 +7,26 @@ import { spawn } from "child_process";
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
-function getSoundDir() {
+interface SoundPack {
+  sounds: Record<string, string>;
+}
+
+interface SoundConfig {
+  enabled: boolean;
+  volume: number;
+  active_pack: string;
+  packs: Record<string, SoundPack>;
+}
+
+function getSoundDir(): string {
   return join(homedir(), ".config", "opencode", "sounds");
 }
 
-function getSoundConfigPath() {
+function getSoundConfigPath(): string {
   return join(getSoundDir(), "config.json");
 }
 
-function loadSoundConfig() {
+function loadSoundConfig(): SoundConfig | null {
   const configPath = getSoundConfigPath();
 
   if (!existsSync(configPath)) {
@@ -36,7 +47,7 @@ function loadSoundConfig() {
   }
 }
 
-function getSoundPath(soundKey, config) {
+function getSoundPath(soundKey: string, config: SoundConfig | null): string | null {
   if (!config) return null;
 
   if (!config.enabled) {
@@ -66,22 +77,22 @@ function getSoundPath(soundKey, config) {
   return null;
 }
 
-function normalizeVolume(volume) {
-  if (!Number.isFinite(volume)) return 1;
+function normalizeVolume(volume: unknown): number {
+  if (typeof volume !== "number" || !Number.isFinite(volume)) return 1;
   if (volume < 0) return 0;
   if (volume > 1) return 1;
   return volume;
 }
 
-function runCommand(command, args) {
+function runCommand(command: string, args: string[]): Promise<void> {
   return new Promise((resolve, reject) => {
     const proc = spawn(command, args, {
       stdio: "ignore",
       detached: false,
     });
 
-    proc.on("error", (err) => reject(err));
-    proc.on("close", (code) => {
+    proc.on("error", (err: Error) => reject(err));
+    proc.on("close", (code: number | null) => {
       if (code === 0) resolve();
       else reject(new Error(`exit ${code}`));
     });
@@ -89,7 +100,7 @@ function runCommand(command, args) {
   });
 }
 
-async function playOnLinux(soundPath, volume) {
+async function playOnLinux(soundPath: string, volume: number): Promise<void> {
   const percentVolume = Math.round(volume * 100);
   const pulseVolume = Math.round(volume * 65536);
 
@@ -121,17 +132,17 @@ async function playOnLinux(soundPath, volume) {
   }
 }
 
-async function playOnMac(soundPath, volume) {
+async function playOnMac(soundPath: string, volume: number): Promise<void> {
   await runCommand("afplay", ["-v", `${volume}`, soundPath]);
 }
 
-async function playOnWindows(soundPath) {
+async function playOnWindows(soundPath: string): Promise<void> {
   const escapedPath = soundPath.replace(/'/g, "''");
   const script = `Add-Type -AssemblyName System.Core; $player = New-Object Media.SoundPlayer '${escapedPath}'; $player.Load(); $player.PlaySync()`;
   await runCommand("powershell", ["-c", script]);
 }
 
-async function playSound(soundPath, volume = 1) {
+async function playSound(soundPath: string | null, volume: number = 1): Promise<void> {
   if (!soundPath) return;
 
   const normalizedVolume = normalizeVolume(volume);
@@ -156,7 +167,7 @@ async function playSound(soundPath, volume = 1) {
   }
 }
 
-async function play(soundKey, volume) {
+async function play(soundKey: string, volume?: number): Promise<void> {
   const config = loadSoundConfig();
   if (!config) return;
   const path = getSoundPath(soundKey, config);
@@ -164,7 +175,19 @@ async function play(soundKey, volume) {
   await playSound(path, volume ?? config.volume);
 }
 
-export const SoundPlugin = () => {
+interface SoundPluginEvent {
+  type: string;
+  properties?: {
+    info?: { role?: string };
+    status?: { type?: string };
+  };
+}
+
+interface SoundPluginHook {
+  event: (context: { event: SoundPluginEvent }) => Promise<void>;
+}
+
+export const SoundPlugin = (): SoundPluginHook => {
   return {
     event: async ({ event }) => {
       try {
@@ -192,9 +215,6 @@ export const SoundPlugin = () => {
 
         if (event.type === "session.status") {
           const status = event.properties?.status?.type;
-          // if (status === "busy") {
-          //   await play("step");
-          // }
           if (status === "idle") {
             await play("stop");
           }
