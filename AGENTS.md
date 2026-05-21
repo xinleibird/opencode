@@ -3,10 +3,6 @@
 - Output in Chinese
 - Generate AGENTS.md in Chinese using the /init command
 
-# Reasoning Constraints
-
-- Please focus ONLY on the specific function I mentioned. Do not refactor surrounding code. Be concise and provide direct solutions without over-thinking. Think step-by-step but show only the final code changes.
-
 <!-- codebase-memory-mcp:start -->
 
 # Codebase Knowledge Graph (codebase-memory-mcp)

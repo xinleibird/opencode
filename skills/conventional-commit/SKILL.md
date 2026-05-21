@@ -191,27 +191,40 @@ style: convert tabs to 2-space indentation
 
 ## 工作流程
 
+本流程分为两个严格独立的阶段，禁止合并或跳过。
+
+### 阶段一：生成 Commit Message（仅生成，不执行）
+
+无论用户输入什么——包括"帮我提交"、"写 commit"、"generate commit"、"commit"、"直接应用"等——**一律只视为生成指令，绝不执行 `git commit`**。
+
 1. 审查提供的变更内容（`git diff --cached` 或用户描述）
 2. 识别变更核心，判断是功能增加、bug 修复还是其他类型
 3. 选择最合适的 `<type>` 与 `<scope>`
 4. 起草简洁准确的 description（英语，50 字符以内为佳）
 5. 如需详细说明，添加 body 和 footer
-6. 严格按照【最终输出指令】返回结果
-7. 输出 commit message：无论用户表述是"帮我提交"、"写 commit"、"generate commit"还是"直接应用"等，用户当前输入的任何内容都只当作**生成指令**。**只输出纯文本 commit message，绝不主动执行 `git commit`。** 与"写"或"生成"相关的词语均视为生成指令而非提交指令。
-8. 后续提交执行：当你的**上一条输出**是一个 commit message 纯文本，并且用户紧接着的指令明确要求执行提交操作（如"提交"、"apply"、"执行"、"应用"等）时，使用 bash 执行：
+6. 严格按照【最终输出指令】返回纯文本 commit message（无解释、无寒暄、无 Markdown 代码块）
 
-   ```
-   git commit -F - <<'EOF'
-   <type>(<scope>): <description>
+### 阶段二：执行提交（仅在用户明确要求时）
 
-   <body>
+阶段二的触发前提：**你上一条输出是一个 commit message 纯文本**，且用户接着发出明确的执行指令。
 
-   <footer>
-   EOF
-   ```
+可触发提交的指令："提交"、"apply"、"执行"、"应用"、"确认提交"等明确表达执行意图的词语。
 
-   ⚠️ 执行前先用 `git diff --cached --stat` 确认暂存区有内容。
-   ⚠️ 如果用户仅说"修改"或"重新生成"等，应理解为重新生成 commit message 而非执行提交。
+不可触发提交的指令："修改"、"重新生成"、"改一下"、"换个格式"等涉及修改的词语——应回到阶段一重新生成。
+
+当满足条件时，用 bash 执行：
+
+```
+git commit -F - <<'EOF'
+<type>(<scope>): <description>
+
+<body>
+
+<footer>
+EOF
+```
+
+⚠️ 执行前先用 `git diff --cached --stat` 确认暂存区有内容。
 
 ## 决策指南
 
