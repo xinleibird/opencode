@@ -2,7 +2,6 @@
 
 - Output in Chinese
 - Generate AGENTS.md in Chinese using the /init command
-
 <!-- codebase-memory-mcp:start -->
 
 # Codebase Knowledge Graph (codebase-memory-mcp)

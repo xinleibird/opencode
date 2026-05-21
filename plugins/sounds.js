@@ -7,26 +7,15 @@ import { spawn } from "child_process";
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
-interface SoundPack {
-  sounds: Record<string, string>;
-}
-
-interface SoundConfig {
-  enabled: boolean;
-  volume: number;
-  active_pack: string;
-  packs: Record<string, SoundPack>;
-}
-
-function getSoundDir(): string {
+function getSoundDir() {
   return join(homedir(), ".config", "opencode", "sounds");
 }
 
-function getSoundConfigPath(): string {
+function getSoundConfigPath() {
   return join(getSoundDir(), "config.json");
 }
 
-function loadSoundConfig(): SoundConfig | null {
+function loadSoundConfig() {
   const configPath = getSoundConfigPath();
 
   if (!existsSync(configPath)) {
@@ -47,7 +36,7 @@ function loadSoundConfig(): SoundConfig | null {
   }
 }
 
-function getSoundPath(soundKey: string, config: SoundConfig | null): string | null {
+function getSoundPath(soundKey, config) {
   if (!config) return null;
 
   if (!config.enabled) {
@@ -77,22 +66,22 @@ function getSoundPath(soundKey: string, config: SoundConfig | null): string | nu
   return null;
 }
 
-function normalizeVolume(volume: unknown): number {
+function normalizeVolume(volume) {
   if (typeof volume !== "number" || !Number.isFinite(volume)) return 1;
   if (volume < 0) return 0;
   if (volume > 1) return 1;
   return volume;
 }
 
-function runCommand(command: string, args: string[]): Promise<void> {
+function runCommand(command, args) {
   return new Promise((resolve, reject) => {
     const proc = spawn(command, args, {
       stdio: "ignore",
       detached: false,
     });
 
-    proc.on("error", (err: Error) => reject(err));
-    proc.on("close", (code: number | null) => {
+    proc.on("error", (err) => reject(err));
+    proc.on("close", (code) => {
       if (code === 0) resolve();
       else reject(new Error(`exit ${code}`));
     });
@@ -100,7 +89,7 @@ function runCommand(command: string, args: string[]): Promise<void> {
   });
 }
 
-async function playOnLinux(soundPath: string, volume: number): Promise<void> {
+async function playOnLinux(soundPath, volume) {
   const percentVolume = Math.round(volume * 100);
   const pulseVolume = Math.round(volume * 65536);
 
@@ -132,17 +121,17 @@ async function playOnLinux(soundPath: string, volume: number): Promise<void> {
   }
 }
 
-async function playOnMac(soundPath: string, volume: number): Promise<void> {
+async function playOnMac(soundPath, volume) {
   await runCommand("afplay", ["-v", `${volume}`, soundPath]);
 }
 
-async function playOnWindows(soundPath: string): Promise<void> {
+async function playOnWindows(soundPath) {
   const escapedPath = soundPath.replace(/'/g, "''");
   const script = `Add-Type -AssemblyName System.Core; $player = New-Object Media.SoundPlayer '${escapedPath}'; $player.Load(); $player.PlaySync()`;
   await runCommand("powershell", ["-c", script]);
 }
 
-async function playSound(soundPath: string | null, volume: number = 1): Promise<void> {
+async function playSound(soundPath, volume = 1) {
   if (!soundPath) return;
 
   const normalizedVolume = normalizeVolume(volume);
@@ -167,7 +156,7 @@ async function playSound(soundPath: string | null, volume: number = 1): Promise<
   }
 }
 
-async function play(soundKey: string, volume?: number): Promise<void> {
+async function play(soundKey, volume) {
   const config = loadSoundConfig();
   if (!config) return;
   const path = getSoundPath(soundKey, config);
@@ -175,19 +164,7 @@ async function play(soundKey: string, volume?: number): Promise<void> {
   await playSound(path, volume ?? config.volume);
 }
 
-interface SoundPluginEvent {
-  type: string;
-  properties?: {
-    info?: { role?: string };
-    status?: { type?: string };
-  };
-}
-
-interface SoundPluginHook {
-  event: (context: { event: SoundPluginEvent }) => Promise<void>;
-}
-
-export const SoundPlugin = (): SoundPluginHook => {
+export const SoundPlugin = () => {
   return {
     event: async ({ event }) => {
       try {
