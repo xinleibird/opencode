@@ -5,7 +5,7 @@
   },
   "attention": {
     "enabled": true,
-    "notifications": true,
+    "notifications": false,
     "sound": false
   }
 }

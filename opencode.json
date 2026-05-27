@@ -1,18 +1,29 @@
 {
   "$schema": "https://opencode.ai/config.json",
-  "plugin": ["opencode-skill-creator"],
+  "plugin": ["opencode-skill-creator", "@xinleibird/bridge-opencode"],
+  "default_agent": "plan",
   "small_model": "nvidia/nvidia/nemotron-3-nano-30b-a3b",
   "lsp": true,
+  "formatter": true,
   "mcp": {
+    "codebase-memory-mcp": {
+      "enabled": true,
+      "type": "local",
+      "command": ["codebase-memory-mcp"]
+    },
+    "MiniMax": {
+      "type": "local",
+      "command": ["uvx", "minimax-coding-plan-mcp", "-y"],
+      "environment": {
+        "MINIMAX_API_KEY": "{env:MINIMAX_API_KEY}",
+        "MINIMAX_API_HOST": "https://api.minimaxi.com"
+      },
+      "enabled": true
+    },
     "tavily": {
       "enabled": true,
       "type": "local",
       "command": ["bunx", "tavily-mcp@latest"]
-    },
-    "codebase-memory-mcp": {
-      "enabled": true,
-      "type": "local",
-      "command": ["/Users/xinlei/.local/bin/codebase-memory-mcp"]
     }
   },
   "permission": {
