@@ -2,31 +2,42 @@
   "$schema": "https://opencode.ai/config.json",
   "plugin": ["opencode-skill-creator", "@xinleibird/bridge-opencode"],
   "default_agent": "plan",
-  "small_model": "nvidia/nvidia/nemotron-3-nano-30b-a3b",
   "lsp": true,
   "formatter": true,
+  "instructions": [
+    "instructions/anti-hallucination.md",
+    "instructions/codebase.md",
+    "instructions/no-human.md"
+  ],
   "mcp": {
-    "codebase-memory-mcp": {
+    "MiniMax": {
       "enabled": true,
       "type": "local",
-      "command": ["codebase-memory-mcp"]
-    },
-    "MiniMax": {
-      "type": "local",
-      "command": ["uvx", "minimax-coding-plan-mcp", "-y"],
+      "command": [
+        "uvx",
+        "--from",
+        "git+https://github.com/xinleibird/MiniMax-Coding-Plan-MCP.git",
+        "minimax-coding-plan-mcp",
+        "-y"
+      ],
       "environment": {
         "MINIMAX_API_KEY": "{env:MINIMAX_API_KEY}",
-        "MINIMAX_API_HOST": "https://api.minimaxi.com"
-      },
-      "enabled": true
+        "MINIMAX_API_HOST": "https://api.minimaxi.com",
+        "EXCLUDED_DOMAINS": "csdn.net"
+      }
     },
     "tavily": {
       "enabled": true,
       "type": "local",
-      "command": ["bunx", "tavily-mcp@latest"]
+      "command": ["bunx", "tavily-mcp@latest"],
+      "environment": {
+        "DEFAULT_PARAMETERS": "{\"exclude_domains\": [\"csdn.net\", \"blog.csdn.net\"]}"
+      }
+    },
+    "codebase-memory-mcp": {
+      "enabled": true,
+      "type": "local",
+      "command": ["codebase-memory-mcp"]
     }
-  },
-  "permission": {
-    "websearch": "allow"
   }
 }

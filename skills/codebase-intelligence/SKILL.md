@@ -22,14 +22,12 @@ description: >-
 
 ## 工具优先级（从高到低）
 
-| 优先级 | 工具 | 适用场景 |
-|--------|------|----------|
-| 1 | `search_graph` | 查找函数、类、路由、变量定义；按名称/关键词搜索代码符号 |
-| 2 | `trace_path` | 追踪函数的调用者（inbound）或被调用者（outbound）；分析数据流（data_flow 模式）；跨服务追踪（cross_service 模式） |
-| 3 | `get_code_snippet` | 读取已找到的特定函数/类的源代码；浏览函数周围上下文 |
-| 4 | `query_graph` | 复杂的多跳查询、聚合分析、跨服务交叉分析（需要 Cypher 查询） |
-| 5 | `get_architecture` | 获取项目的高层架构概览——包、服务、依赖关系和项目结构 |
-| 6 | grep/glob/file-search | 兜底方案，仅当上述工具不适用时才使用 |
+1. **`search_graph`** — 查找函数、类、路由、变量定义；按名称/关键词搜索代码符号
+2. **`trace_path`** — 追踪函数的调用者（inbound）或被调用者（outbound）；分析数据流（data_flow 模式）；跨服务追踪（cross_service 模式）
+3. **`get_code_snippet`** — 读取已找到的特定函数/类的源代码；浏览函数周围上下文
+4. **`query_graph`** — 复杂的多跳查询、聚合分析、跨服务交叉分析（需要 Cypher 查询）
+5. **`get_architecture`** — 获取项目的高层架构概览——包、服务、依赖关系和项目结构
+6. **grep/glob/file-search** — 兜底方案，仅当上述工具不适用时才使用
 
 ## 工具选择决策树
 
