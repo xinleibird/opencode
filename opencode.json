@@ -1,15 +1,14 @@
 {
   "$schema": "https://opencode.ai/config.json",
-  "plugin": ["opencode-skill-creator", "@xinleibird/bridge-opencode"],
+  "plugin": [
+    "opencode-skill-creator",
+    "@xinleibird/bridge-opencode",
+    "./plugins/caveman/plugin.js"
+  ],
   "small_model": "nvidia/stepfun-ai/step-3.5-flash",
   "default_agent": "plan",
   "lsp": true,
   "formatter": true,
-  "instructions": [
-    "instructions/anti-hallucination.md",
-    "instructions/codebase.md",
-    "instructions/no-human.md"
-  ],
   "mcp": {
     "MiniMax": {
       "enabled": true,
@@ -38,7 +37,7 @@
     "codebase-memory-mcp": {
       "enabled": true,
       "type": "local",
-      "command": ["codebase-memory-mcp"]
+      "command": ["/Users/xinlei/.local/bin/codebase-memory-mcp"]
     }
   }
 }

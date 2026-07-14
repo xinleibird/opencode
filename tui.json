@@ -2,10 +2,5 @@
   "$schema": "https://opencode.ai/tui.json",
   "keybinds": {
     "leader": "ctrl+x"
-  },
-  "attention": {
-    "enabled": true,
-    "notifications": false,
-    "sound": false
   }
 }

@@ -47,7 +47,7 @@ const config = {
     error: join(CONFIG_DIR, "assets/sounds/error.flac"),
     question: join(CONFIG_DIR, "assets/sounds/question.flac"),
     user_cancelled: join(CONFIG_DIR, "assets/sounds/user_canceled.flac"),
-    plan_exit: join(CONFIG_DIR, "assets/sounds/question.flac"),
+    plan_exit: join(CONFIG_DIR, "assets/sounds/plan_exit.flac"),
     session_started: join(CONFIG_DIR, "assets/sounds/session_started.flac"),
     user_message: join(CONFIG_DIR, "assets/sounds/user_message.flac"),
     client_connected: join(CONFIG_DIR, "assets/sounds/client_connected.flac"),
@@ -222,10 +222,6 @@ export const NotifierPlugin = ({ directory }) => {
         }
         return;
       }
-    },
-
-    "permission.ask": async () => {
-      fire("permission", projectName, null);
     },
 
     "tool.execute.before": async (input) => {
