@@ -1,11 +1,6 @@
 {
   "$schema": "https://opencode.ai/config.json",
-  "plugin": [
-    "opencode-skill-creator",
-    "@xinleibird/bridge-opencode",
-    "./plugins/caveman/plugin.js"
-  ],
-  "small_model": "nvidia/stepfun-ai/step-3.5-flash",
+  "plugin": ["@xinleibird/bridge-opencode"],
   "default_agent": "plan",
   "lsp": true,
   "formatter": true,
